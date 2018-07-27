@@ -1,16 +1,22 @@
 <template>
-  <div class="hello">
-    <h6>{{ msg }}</h6>
-    <line-chart :data="chartData" :options="chartOptions"></line-chart>
-
+  <div class="data row">
+    <section class="col-md-6">
+      <h5>Consumption</h5>
+      <line-chart :data="chartData" :options="chartOptions"></line-chart>
+    </section>
+    <section class="data col-md-6">
+      <h5>Line Observation</h5>
+      <bubble-chart ></bubble-chart>
+    </section>
   </div>
 </template>
 
 <script>
 import LineChart from '../components/LineChart.js'
+import BubbleChart from '../components/BubbleChart.js'
 
 export default {
-  components: { LineChart },
+  components: { LineChart, BubbleChart },
   name: 'Monitor',
   data () {
     return {
@@ -20,17 +26,29 @@ export default {
         datasets: [
           {
             label: 'Meter 1',
-            backgroundColor: '#f87979',
+            borderColor: '#649EB9',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: '#649EB9',
+            backgroundColor: 'transparent',
             data: [0, 19, 10, 4, 9, 40, 10]
           },
           {
             label: 'Meter 2',
-            backgroundColor: '#d87009',
+            borderColor: '#249EBF',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: '#249EBF',
+            backgroundColor: 'transparent',
             data: [40, 39, 10, 40, 39, 80, 40]
           },
           {
             label: 'Meter 3',
-            backgroundColor: '#f8a97b',
+            borderColor: '#FF0E00',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: '#FF0E00',
+            backgroundColor: 'transparent',
             data: [0, 30, 19, 35, 60, 22, 0]
           }
         ]
