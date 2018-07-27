@@ -8,7 +8,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
-Vue.component('line-chart', Monitor)
 
 export default new Router({
   routes: [

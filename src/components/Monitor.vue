@@ -1,32 +1,41 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <line-chart></line-chart>
+    <h6>{{ msg }}</h6>
+    <line-chart :data="chartData" :options="chartOptions"></line-chart>
+
   </div>
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
+import LineChart from '../components/LineChart.js'
 
 export default {
+  components: { LineChart },
   name: 'Monitor',
-  extends: Bar,
-  mounted () {
-    // Overwriting base render method with actual data.
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [
-        {
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-        }
-      ]
-    })
-  },
   data () {
     return {
-      msg: 'This is the live page'
+      msg: 'Live Monitor',
+      chartData: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: 'Meter 1',
+            backgroundColor: '#f87979',
+            data: [0, 19, 10, 4, 9, 40, 10]
+          },
+          {
+            label: 'Meter 2',
+            backgroundColor: '#d87009',
+            data: [40, 39, 10, 40, 39, 80, 40]
+          },
+          {
+            label: 'Meter 3',
+            backgroundColor: '#f8a97b',
+            data: [0, 30, 19, 35, 60, 22, 0]
+          }
+        ]
+      },
+      chartOptions: {responsive: true, maintainAspectRatio: false}
     }
   }
 }
