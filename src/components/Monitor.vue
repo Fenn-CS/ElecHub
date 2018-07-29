@@ -18,6 +18,9 @@ import BubbleChart from '../components/BubbleChart.js'
 export default {
   components: { LineChart, BubbleChart },
   name: 'Monitor',
+  mounted () {
+    this.getLiveReadings()
+  },
   data () {
     return {
       msg: 'Live Monitor',
@@ -31,7 +34,7 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#649EB9',
             backgroundColor: 'transparent',
-            data: [0, 19, 10, 4, 9, 40, 10]
+            data: [0, 0, 0, 0, 0, 0, 0]
           },
           {
             label: 'Meter 2',
@@ -40,7 +43,7 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#249EBF',
             backgroundColor: 'transparent',
-            data: [40, 39, 10, 40, 39, 80, 40]
+            data: [0, 0, 0, 0, 0, 0, 0]
           },
           {
             label: 'Meter 3',
@@ -49,13 +52,27 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#FF0E00',
             backgroundColor: 'transparent',
-            data: [0, 30, 19, 35, 60, 22, 0]
+            data: [0, 0, 0, 0, 0, 0, 0]
           }
         ]
       },
       chartOptions: {responsive: true, maintainAspectRatio: false}
     }
+  },
+  methods: {
+    getLiveReadings: function () {
+      setInterval(() => {
+        pushData(this.chartData.datasets[0].data)
+        pushData(this.chartData.datasets[1].data)
+        pushData(this.chartData.datasets[2].data)
+      }, 1)
+    }
   }
+}
+
+function pushData (data) {
+  data.push(Math.floor(Math.random() * 100) + 1)
+  data.shift()
 }
 </script>
 
