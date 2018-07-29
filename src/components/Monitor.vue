@@ -65,7 +65,7 @@ export default {
         pushData(this.chartData.datasets[0].data)
         pushData(this.chartData.datasets[1].data)
         pushData(this.chartData.datasets[2].data)
-      }, 1)
+      }, 5000)
     }
   }
 }
