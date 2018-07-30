@@ -2,7 +2,7 @@
   <div class="data row">
     <section class="col-md-6">
       <h5>Consumption</h5>
-      <line-chart :data="chartData" :options="chartOptions"></line-chart>
+      <line-chart :chart-data="datacollection" :options="chartOptions"></line-chart>
     </section>
     <section class="data col-md-6">
       <h5>Line Observation</h5>
@@ -19,12 +19,22 @@ export default {
   components: { LineChart, BubbleChart },
   name: 'Monitor',
   mounted () {
+    this.fillData()
     this.getLiveReadings()
   },
   data () {
     return {
       msg: 'Live Monitor',
-      chartData: {
+      datacollection: null,
+      chartOptions: {responsive: true, maintainAspectRatio: false},
+      source1: [0, 0, 0, 0, 0, 0, 0, 0],
+      source2: [0, 0, 0, 0, 0, 0, 0, 0],
+      source3: [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  methods: {
+    fillData: function () {
+      this.datacollection = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
           {
@@ -34,7 +44,7 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#649EB9',
             backgroundColor: 'transparent',
-            data: [0, 0, 0, 0, 0, 0, 0]
+            data: this.source1
           },
           {
             label: 'Meter 2',
@@ -43,7 +53,7 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#249EBF',
             backgroundColor: 'transparent',
-            data: [0, 0, 0, 0, 0, 0, 0]
+            data: this.source2
           },
           {
             label: 'Meter 3',
@@ -52,27 +62,31 @@ export default {
             borderWidth: 1,
             pointBorderColor: '#FF0E00',
             backgroundColor: 'transparent',
-            data: [0, 0, 0, 0, 0, 0, 0]
+            data: this.source3
           }
         ]
-      },
-      chartOptions: {responsive: true, maintainAspectRatio: false}
-    }
-  },
-  methods: {
+      }
+    },
     getLiveReadings: function () {
       setInterval(() => {
-        pushData(this.chartData.datasets[0].data)
-        pushData(this.chartData.datasets[1].data)
-        pushData(this.chartData.datasets[2].data)
-      }, 5000)
+        this.fillData()
+        console.log('Init :' + this.datacollection.datasets[0].data)
+        pushData(this.source1)
+        pushData(this.source2)
+        pushData(this.source3)
+        console.log('Even :' + this.datacollection.datasets[0].data)
+      }, 1000)
     }
   }
 }
 
 function pushData (data) {
-  data.push(Math.floor(Math.random() * 100) + 1)
+  data.push(r())
   data.shift()
+}
+
+function r () {
+  return Math.floor(Math.random() * 100) + 1
 }
 </script>
 
